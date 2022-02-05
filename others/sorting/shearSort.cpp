@@ -9,28 +9,9 @@ void shearSort(std::vector<std::vector<int>>&);
 void sortColumn(std::vector<std::vector<int>>&);
 std::vector<int> mergeSortHelper(const std::vector<int>&, const std::vector<int>&, std::function<bool(int, int)>);
 std::vector<int> mergeSort(const std::vector<int>&, std::function<bool(int, int)>);
-void randomMatrix(std::vector<std::vector<int>>&);
 
 int main(void) {
-    size_t N;
-    std::cin >> N;
-    auto matrix = std::vector<std::vector<int>>(N, std::vector<int>(N, int()));
-    randomMatrix(matrix);
-    for(auto arr : matrix) {
-        for(auto num : arr) {
-            std::cout << std::setw(6) << std::setfill('0') << num << '\t';
-        }
-        std::endl(std::cout);
-    }
-    std::endl(std::cout);
-    shearSort(matrix);
-    for(auto arr : matrix) {
-        for(auto num : arr) {
-            std::cout << std::setw(6) << std::setfill('0') << num << '\t';
-        }
-        std::endl(std::cout);
-    }
-    std::cout << (double)clock() / CLOCKS_PER_SEC << "S\n";
+    
     return 0;
 }
 
@@ -106,15 +87,4 @@ std::vector<int> mergeSort(const std::vector<int>& array, std::function<bool(int
     auto leftArray = std::vector<int>(array.begin(), middleIdx);
     auto rightArray = std::vector<int>(middleIdx, array.end());
     return mergeSortHelper(mergeSort(leftArray, comp), mergeSort(rightArray, comp), comp);
-}
-
-void randomMatrix(std::vector<std::vector<int>>& matrix) {
-    std::random_device rd;
-    std::default_random_engine gen = std::default_random_engine(rd());
-    std::uniform_int_distribution<int> dis(0, 999999);
-    for(auto& arr : matrix) {
-        for(auto& num : arr) {
-            num = dis(gen);
-        }
-    }
 }
